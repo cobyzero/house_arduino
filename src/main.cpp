@@ -1,23 +1,13 @@
 #include <Arduino.h>
-
-int pinSensor = 8;
-int pinLed = 7;
-
-void setup() {
-  pinMode(pinLed, OUTPUT);
-  pinMode(pinSensor, INPUT);
+#include "controllers/led_controller.h"
+#include "controllers/network_controller.h"
+void setup()
+{
+  networkController.Setup();
+  ledController.Setup();
 }
 
-void loop() {
-  int sensorValue = digitalRead(pinSensor);
-  if (sensorValue == HIGH) {
-    digitalWrite(pinLed, HIGH);
-    delay(500);
-    digitalWrite(pinLed, LOW);
-  } else {
-    digitalWrite(pinLed, LOW);
-    delay(500);
-  }
-  delay(2000);
+void loop()
+{
+  networkController.Loop();
 }
- 
