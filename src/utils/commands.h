@@ -4,14 +4,10 @@ enum Command
 {
     NONE,
     LED_ON,
-    LED_OFF
+    LED_OFF,
+    VENTILATOR_ON,
+    VENTILATOR_OFF,
+    SETUP_PINS
 };
 
-Command parseCommand(const String &command)
-{
-    if (command == "room.light.on")
-        return LED_ON;
-    else if (command == "room.light.off")
-        return LED_OFF;
-    return NONE;
-}
+Command parseCommand(const String &command);
