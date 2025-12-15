@@ -18,6 +18,22 @@ Command parseCommand(const String &command)
     {
         return VENTILATOR_OFF;
     }
+    else if (command == "alarm.on")
+    {
+        return ALARM_ON;
+    }
+    else if (command == "alarm.off")
+    {
+        return ALARM_OFF;
+    }
+    else if (command == "door.open")
+    {
+        return DOOR_OPEN;
+    }
+    else if (command == "door.close")
+    {
+        return DOOR_CLOSE;
+    }
     else if (command == "setup.pins")
     {
         return SETUP_PINS;

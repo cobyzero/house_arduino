@@ -7,6 +7,10 @@ enum Command
     LED_OFF,
     VENTILATOR_ON,
     VENTILATOR_OFF,
+    ALARM_ON,
+    ALARM_OFF,
+    DOOR_OPEN,
+    DOOR_CLOSE,
     SETUP_PINS
 };
 

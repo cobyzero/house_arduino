@@ -17,6 +17,18 @@ void NetworkController::Setup()
     Serial.println("NetworkController initialized.");
 }
 
+void alarmOn(int pin, int seconds)
+{
+    if(seconds == 0){
+        return;
+    }
+    pinController.On(pin);
+    delay(500);
+    pinController.Off(pin);
+    delay(500);
+    alarmOn(pin, seconds - 1);
+}
+
 void NetworkController::Loop()
 {
     if (Serial.available())
@@ -28,18 +40,28 @@ void NetworkController::Loop()
         splitString(command, partes, count);
 
         Command cmd = parseCommand(partes[1] + "." + partes[2]);
+        int pin = partes[3].toInt();
         switch (cmd)
         {
+        case ALARM_ON:
+            alarmOn(pin, 5);
+            Serial.println("Alarm turned ON");
+            break;
         case LED_ON:
-            pinController.On(partes[3].toInt());
-            Serial.println("Room light turned ON");
+        case VENTILATOR_ON:
+        case DOOR_OPEN:
+            pinController.On(pin);
+            Serial.println("Device turned ON");
             break;
         case LED_OFF:
-            pinController.Off(partes[3].toInt());
-            Serial.println("Room light turned OFF");
+        case VENTILATOR_OFF:
+        case ALARM_OFF:
+        case DOOR_CLOSE:
+            pinController.Off(pin);
+            Serial.println("Device turned OFF");
             break;
         case SETUP_PINS:
-            pinController.Setup(partes[3].toInt());
+            pinController.Setup(pin);
             Serial.println("Pins setup completed");
             break;
         case NONE:
