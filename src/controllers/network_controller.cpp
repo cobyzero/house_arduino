@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "../utils/commands.h"
 #include "../utils/utils.h"
+#include <Servo.h>
 
 NetworkController networkController;
 
@@ -19,7 +20,8 @@ void NetworkController::Setup()
 
 void alarmOn(int pin, int seconds)
 {
-    if(seconds == 0){
+    if (seconds == 0)
+    {
         return;
     }
     pinController.On(pin);
@@ -71,4 +73,16 @@ void NetworkController::Loop()
             break;
         }
     }
+}
+Servo servoPuerta;
+void openDoor(int pin)
+{
+    servoPuerta.attach(pin);
+    servoPuerta.write(90); // Abre la puerta
+}
+
+void closeDoor(int pin)
+{
+    servoPuerta.attach(pin);
+    servoPuerta.write(0); // Cierra la puerta
 }
